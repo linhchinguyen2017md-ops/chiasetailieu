@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Hệ Thống Chân Không Bể Dầu Bôi Trơn Tuabin (Hệ Thống VXM)</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0284c7;
+            --accent-color: #d97706;
+            --danger-color: #dc2626;
+            --success-color: #16a34a;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 26px;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-info {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            color: #1e40af;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 17px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 14px;
+        }
+
+        ul {
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14.5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .callout {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .callout-info {
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .callout-warning {
+            background-color: #fffbeb;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .callout-danger {
+            background-color: #fef2f2;
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .callout-info .callout-title { color: #0369a1; }
+        .callout-warning .callout-title { color: #b45309; }
+        .callout-danger .callout-title { color: #b91c1c; }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .checklist li input[type="checkbox"] {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+        }
+
+        .golden-rules {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1px solid #fcd34d;
+            border-left: 5px solid #d97706;
+            padding: 20px 24px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .golden-rules ul {
+            margin-bottom: 0;
+        }
+
+        .golden-rules li {
+            font-weight: 500;
+            color: #78350f;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+
+        .badge-danger {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-warning {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Báo Cáo Hệ Thống Chân Không Bể Dầu Bôi Trơn Tuabin (Hệ Thống VXM)</h1>
+            <div class="meta-info">
+                <strong>Thiết bị:</strong> Quạt hút hơi ẩm bể dầu bôi trơn tuabin &nbsp;|&nbsp; 
+                <strong>Mã KKS:</strong> 13MAV20AN001A/B (Tổ máy 1) – 23MAV20AN001A/B (Tổ máy 2)
+            </div>
+        </header>
+
+        <section id="sec-1">
+            <h2>1. Tóm tắt nhanh</h2>
+            <div class="callout callout-info">
+                <ul>
+                    <li>Hệ thống VXM giữ áp suất âm nhẹ trong bể dầu chính và các khoang gối trục, mức khuyến nghị <strong>–5 ÷ –15 mbar</strong> (ưu tiên đo tại gối trục).</li>
+                    <li>Có hai nguy cơ đối lập: <strong>mất chân không</strong> (áp suất bể thành dương) gây sương dầu thoát ra, nguy cơ cháy nổ; và <strong>chân không quá sâu</strong> gây hút hơi nước chèn trục vào dầu, hao dầu.</li>
+                    <li>Cấu hình 2 quạt A/B, <strong>1 chạy – 1 dự phòng (2 × 100%)</strong>, dự phòng đặt Auto.</li>
+                    <li><strong>Nguyên tắc cốt lõi:</strong> quạt chạy trước bơm dầu chính; không để cả 2 quạt cùng dừng; vượt ngưỡng nhiệt độ, có khói hoặc cháy không kiểm soát thì ngừng khẩn cấp tuabin có phá hoại chân không.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="sec-2">
+            <h2>2. Chức năng và cấu hình hệ thống</h2>
+            
+            <h3>2.1. Chức năng</h3>
+            <p>Hệ thống duy trì áp suất âm nhẹ trong bể dầu chính và các khoang gối trục nhằm:</p>
+            <ul>
+                <li>Ngăn sương dầu thoát ra ngoài qua phớt chắn dầu (oil deflector).</li>
+                <li>Hỗ trợ tách khí và hơi ẩm trong dầu.</li>
+                <li>Tạo dòng không khí nhẹ đi qua các gối trục.</li>
+            </ul>
+
+            <h3>2.2. Mức chân không mục tiêu</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Nội dung</th>
+                        <th>Giá trị</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mức khuyến nghị</strong></td>
+                        <td><strong>–5 ÷ –15 mbar</strong> (ưu tiên đo tại gối trục)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tại bể dầu</strong></td>
+                        <td>Tương đương hoặc thấp hơn một chút</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Giới hạn không nên vượt</strong></td>
+                        <td>Không để chân không sâu hơn khoảng <strong>–20 mbar</strong> (áp suất âm hơn –20 mbar) vì dễ hút hơi chèn trục và thất thoát dầu qua bộ tách ẩm</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="callout callout-warning">
+                <span class="callout-title">Lưu ý cách gọi:</span>
+                "Chân không cao" nghĩa là áp suất càng âm (ví dụ –25 mbar là chân không cao hơn –15 mbar). "Mất chân không" nghĩa là áp suất bể tiến về 0 hoặc thành dương.
+            </div>
+
+            <h3>2.3. Cấu hình thiết bị</h3>
+            <ul>
+                <li>2 quạt A/B, chế độ 1 chạy – 1 dự phòng (2 × 100%).</li>
+                <li>Quạt dự phòng đặt Auto / Dự phòng liên động.</li>
+                <li>Điều chỉnh chân không bằng van tay trên đường đầu hút của quạt (trên nóc bể).</li>
+                <li><strong>Thiết bị phụ trợ:</strong> bộ tách ẩm (bẫy hơi dầu), van một chiều đầu đẩy, hệ thống lọc tái sinh dầu <code>13MAV10AT001</code>.</li>
+            </ul>
+        </section>
+
+        <section id="sec-3">
+            <h2>3. Nguyên nhân gây bất thường chân không</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Nhóm nguyên nhân</th>
+                        <th style="width: 45%;">Nguyên nhân cụ thể</th>
+                        <th style="width: 30%;">Ảnh hưởng đến chân không</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mất nguồn / động cơ</strong></td>
+                        <td>Nhảy rơ le nhiệt, aptomat 0,4 kV; lỗi động cơ; lỗi tủ điều khiển tại chỗ</td>
+                        <td><span class="badge badge-danger">Mất chân không (áp suất dương)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sự cố cơ khí quạt</strong></td>
+                        <td>Kẹt cơ khí, quạt trip, dừng đột ngột</td>
+                        <td><span class="badge badge-danger">Mất chân không</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sai chế độ điều chỉnh</strong></td>
+                        <td>Van tay đầu hút mở quá nhỏ</td>
+                        <td>Hút yếu, áp suất dương</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sai chế độ điều chỉnh</strong></td>
+                        <td>Van tay đầu hút mở quá lớn</td>
+                        <td><span class="badge badge-warning">Chân không quá cao</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tắc nghẽn đường ống</strong></td>
+                        <td>Tắc đường hút trên nóc bể; tắc bộ tách ẩm / bẫy hơi dầu</td>
+                        <td>Hút yếu, áp suất dương</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Đóng nhầm van</strong></td>
+                        <td>Van tay đầu hút bị đóng nhầm</td>
+                        <td><span class="badge badge-danger">Mất chân không</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mất cả 2 quạt</strong></td>
+                        <td>Cả A và B cùng sự cố / dừng</td>
+                        <td><span class="badge badge-danger">Mất chân không hoàn toàn</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chảy ngược</strong></td>
+                        <td>Van một chiều đầu đẩy hỏng, hơi dầu thổi ngược qua quạt dự phòng</td>
+                        <td>Giảm hiệu quả hút</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sec-4">
+            <h2>4. Ảnh hưởng đến thiết bị và vận hành</h2>
+            <p>Bể dầu và khoang gối luôn "thông" với bên ngoài qua phớt chắn dầu. Vì vậy chỉ có một cửa sổ vận hành hẹp: quá dương thì hơi dầu thoát ra, quá âm thì hơi nước và không khí bị hút vào.</p>
+
+            <h3>4.1. Khi mất chân không / hút yếu (áp suất bể tăng dương)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 22%;">Ảnh hưởng</th>
+                        <th style="width: 33%;">Cơ chế</th>
+                        <th style="width: 45%;">Hậu quả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Rò rỉ sương dầu ra gian máy</strong></td>
+                        <td>Áp suất bể lớn hơn khí quyển, đẩy hơi dầu qua phớt chắn dầu</td>
+                        <td>Nguy cơ cháy nổ cao khi gặp bề mặt nóng (xilanh CA/TA, đường ống hơi chính/tái nhiệt); dầu đã ngấm vào lớp bảo ôn vẫn có thể bắt cháy muộn, kể cả sau khi đã khôi phục chân không; ô nhiễm môi trường, làm bẩn và trơn sàn gian máy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dầu bám lên thiết bị lân cận</strong></td>
+                        <td>Sương dầu lắng đọng trên đầu cáp, cảm biến, thiết bị điện gần gối</td>
+                        <td>Nhiễu hoặc sai tín hiệu đo (nhiệt độ, rung), giảm tuổi thọ cáp và thiết bị; sàn trơn gây nguy hiểm cho người đi kiểm tra</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cản trở dòng dầu hồi</strong></td>
+                        <td>Giảm chênh áp dòng hồi tự chảy</td>
+                        <td>Nguy cơ tràn dầu tại gối (lại làm tăng dầu rò ra ngoài), tăng nhiệt độ kim loại bạc lót</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Khó thoát khí trong dầu</strong></td>
+                        <td>Giảm khả năng tách bọt (detraining)</td>
+                        <td>Tạo bọt, suy giảm màng dầu bôi trơn, gây rung động trục, về lâu dài dễ mòn bạc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mất cân bằng chân không giữa các gối</strong></td>
+                        <td>Chân không chung của bể đạt nhưng lưu lượng hút phân bố không đều giữa các gối</td>
+                        <td>Một số gối vẫn rò sương dầu dù chỉ số chung bình thường, vì vậy phải ưu tiên đo và cân bằng tại gối trục</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quạt làm việc quá tải khi đường hút tắc hoặc bị bóp</strong></td>
+                        <td>Đường hút tắc hoặc van tay mở quá nhỏ làm quạt chạy ở chế độ bất thường</td>
+                        <td>Động cơ nóng, dòng điện lệch khỏi giá trị ổn định ≈ 11,4 A, dễ nhảy rơ le nhiệt, quạt trip và mất chân không (tạo thành vòng lặp)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chảy ngược qua quạt dự phòng</strong></td>
+                        <td>Van một chiều đầu đẩy hỏng, hơi dầu thổi ngược</td>
+                        <td>Quạt dự phòng bị bẩn dầu, có thể quay ngược, khởi động kém tin cậy đúng lúc cần dự phòng</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sương dầu khi dừng máy</strong></td>
+                        <td>Sau khi dừng, trục còn quay ở chế độ quay trục (turning gear) và hệ thống dầu vẫn làm việc</td>
+                        <td>Nếu dừng quạt VXM quá sớm, sương dầu vẫn tiếp tục thoát ra; cần duy trì chân không đến khi ngừng hệ thống dầu</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-danger">
+                <span class="callout-title">Giải thích dễ hiểu (Mất chân không):</span>
+                <ul>
+                    <li><strong>Sương dầu và bề mặt nóng là tổ hợp nguy hiểm nhất.</strong> Các gối trục nằm gần xilanh và đường ống hơi nhiệt độ cao. Sương dầu bám vào lớp bảo ôn hoặc bề mặt nóng có thể bốc cháy, diễn biến nhanh và hậu quả nặng nề. Sau sự cố mất chân không cần kiểm tra và làm sạch dầu bám trên bảo ôn trước khi coi là hết rủi ro.</li>
+                    <li>Dầu hồi chảy về bể bằng trọng lực. Khi bể tăng áp, dầu hồi chậm, mức dầu trong gối dâng, dầu tràn qua phớt và nhiệt độ bạc lót tăng. Dấu hiệu sớm là nhiệt độ dầu hồi và nhiệt độ kim loại gối tăng dần trong khi áp lực dầu cấp vẫn bình thường.</li>
+                    <li>Dầu có bọt thì màng dầu không liên tục, bạc làm việc kém ổn định, trục rung và về lâu dài dễ mòn bạc.</li>
+                    <li>Chân không toàn bể đạt chưa có nghĩa mọi gối đều đạt. Vì vậy cần đo và cân bằng tại từng gối, không chỉ nhìn chỉ số chung.</li>
+                    <li>Dòng điện quạt là chỉ thị gián tiếp. Dòng lệch khỏi <strong>≈ 11,4 A</strong> (đường hút tắc, van bị bóp hoặc đóng nhầm) là dấu hiệu cần kiểm tra ngay, kể cả khi chưa có cảnh báo.</li>
+                </ul>
+            </div>
+
+            <h3>4.2. Khi chân không quá cao (hút quá mạnh)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 22%;">Ảnh hưởng</th>
+                        <th style="width: 33%;">Cơ chế</th>
+                        <th style="width: 45%;">Hậu quả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hút hơi chèn trục vào gối</strong></td>
+                        <td>Áp suất âm lớn hút hơi nước từ gland seal xuyên vành chắn dầu</td>
+                        <td>Nhũ hóa dầu, suy giảm chất lượng dầu</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hơi nước lẫn dầu</strong></td>
+                        <td>Hơi nước ngưng tụ trộn vào dầu</td>
+                        <td>Mức dầu tăng giả tạo, giảm độ nhớt, thúc đẩy oxy hóa, ăn mòn/gỉ sét cổ trục; quá tải lọc tái sinh <code>13MAV10AT001</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hút không khí và bụi từ ngoài vào</strong></td>
+                        <td>Chân không sâu kéo không khí và bụi qua phớt chắn dầu</td>
+                        <td>Dầu oxy hóa nhanh hơn, sinh cặn và tăng acid value, rút ngắn tuổi thọ dầu</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hút dầu lỏng thất thoát</strong></td>
+                        <td>Lực hút cuốn hạt dầu vượt khả năng giữ của bộ tách ẩm</td>
+                        <td>Tiêu hao dầu bôi trơn, phát tán dầu ra đường xả thải, làm bẩn mái và ống xả, gây rủi ro môi trường</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tăng tải cho bộ tách ẩm và lọc tái sinh</strong></td>
+                        <td>Lượng nước, dầu và cặn cần xử lý tăng lên</td>
+                        <td>Tăng tần suất thay lõi lọc, tăng chi phí bảo dưỡng, dễ tắc bộ tách ẩm (từ đó có thể chuyển sang tình huống hút yếu)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hư hại bạc và cổ trục về lâu dài</strong></td>
+                        <td>Nước lẫn dầu làm gỉ cổ trục, bề mặt không còn nhẵn</td>
+                        <td>Tăng ma sát và nhiệt độ bạc, tăng rung trục</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-warning">
+                <span class="callout-title">Giải thích dễ hiểu (Chân không quá cao):</span>
+                Chân không quá sâu không gây sự cố tức thời nhưng âm thầm làm hỏng dầu và ăn mòn thiết bị. Do không có cảnh báo rõ ràng nên dễ bị bỏ sót, cần theo dõi chất lượng dầu và đường xả quạt thường xuyên.
+            </div>
+
+            <h3>4.3. So sánh hai chiều sự cố</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 24%;">Tiêu chí</th>
+                        <th style="width: 38%;">Mất chân không</th>
+                        <th style="width: 38%;">Chân không quá cao</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bản chất</strong></td>
+                        <td>Cấp tính, nguy hiểm tức thời</td>
+                        <td>Mãn tính, tích lũy dần</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rủi ro lớn nhất</strong></td>
+                        <td>Cháy nổ do sương dầu gặp bề mặt nóng</td>
+                        <td>Dầu hỏng, ăn mòn cổ trục, hao dầu</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dấu hiệu nhận biết</strong></td>
+                        <td>Sương dầu quanh gối, nhiệt độ dầu hồi tăng</td>
+                        <td>Nước trong dầu, mức dầu tăng giả, sương/dầu ở đường xả quạt</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tốc độ phát triển</strong></td>
+                        <td>Nhanh, nhất là khi mất cả 2 quạt</td>
+                        <td>Chậm, dễ bị bỏ sót</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hướng xử lý</strong></td>
+                        <td>Khôi phục quạt, bố trí chữa cháy, ngừng khẩn cấp nếu vượt ngưỡng</td>
+                        <td>Chỉnh lại van tay đầu hút, theo dõi chất lượng dầu</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sec-5">
+            <h2>5. Ngưỡng giám sát vận hành</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 55%;">Thông số</th>
+                        <th style="width: 45%;">Ngưỡng khuyến nghị</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Áp suất bể dầu / gối trục</td>
+                        <td><strong>–5 ÷ –15 mbar</strong> (ưu tiên đo tại gối)</td>
+                    </tr>
+                    <tr>
+                        <td>Nhiệt độ dầu hồi từ các gối</td>
+                        <td><strong>&lt; 82°C</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Nhiệt độ kim loại ổ đỡ gối 1–3</td>
+                        <td><strong>&lt; 127°C</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Nhiệt độ kim loại ổ đỡ gối 4–8</td>
+                        <td><strong>&lt; 116°C / 121°C</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Nhiệt độ kim loại gối chặn</td>
+                        <td><strong>&lt; 105°C</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Dòng điện quạt VXM chạy ổn định</td>
+                        <td><strong>≈ 11,4 A</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Quan sát đường xả quạt</td>
+                        <td>Không có sương dầu / dầu lỏng</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sec-6">
+            <h2>6. Biện pháp phòng ngừa và khắc phục</h2>
+            
+            <h3>6.1. Phòng ngừa trong vận hành bình thường</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Biện pháp</th>
+                        <th style="width: 70%;">Nội dung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Trình tự khởi động</strong></td>
+                        <td>Quạt hút khí bể dầu bắt buộc khởi động trước bơm dầu bôi trơn chính</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chế độ dự phòng</strong></td>
+                        <td>Duy trì 1 chạy – 1 dự phòng; quạt dự phòng đặt Auto / Dự phòng liên động</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Điều chỉnh chân không</strong></td>
+                        <td>Chỉnh van tay đầu hút để duy trì –5 ÷ –15 mbar; ưu tiên cân bằng giữa các gối</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chống chảy ngược</strong></td>
+                        <td>Duy trì van một chiều đầu đẩy hoạt động tốt</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Thông đường hút / xả</strong></td>
+                        <td>Định kỳ kiểm tra đường ống hút, bộ tách ẩm / bẫy hơi dầu không tắc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Giám sát chất lượng dầu</strong></td>
+                        <td>Theo dõi hàm lượng nước, độ nhớt, acid value liên quan đến chân không</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.2. Khắc phục khi sự cố</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">Tình huống</th>
+                        <th style="width: 65%;">Biện pháp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1 quạt trip</strong></td>
+                        <td>Quạt dự phòng tự khởi động (Auto); kiểm tra quạt lỗi, khắc phục và đưa lại dự phòng</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cả 2 quạt dừng</strong></td>
+                        <td>Thử khởi động lại từng quạt từ DCS (Auto → Manual); Máy phó kiểm tra tại chỗ động cơ, tủ điều khiển, rơ le nhiệt / aptomat 0,4 kV</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Không chạy lại được ngay</strong></td>
+                        <td>Kiểm tra đường hút, bẫy hơi dầu, van tay đầu hút; mở cửa thông gió phòng bể dầu; bố trí người trực chữa cháy với CO₂ tại gối nóng (đặc biệt gối 1, 2, 3)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nhiệt độ dầu hồi &gt; 82°C / có khói từ gối / cháy không kiểm soát</strong></td>
+                        <td><span class="badge badge-danger">Ngừng khẩn cấp tuabin có phá hoại chân không theo đúng quy trình</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sự cố nguồn / động cơ</strong></td>
+                        <td>Báo phân xưởng Điện / Cơ nhiệt khắc phục khẩn cấp</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sec-7">
+            <h2>7. Phân công Máy trưởng – Máy phó khi xử lý sự cố</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 8%;">Bước</th>
+                        <th style="width: 32%;">Máy trưởng (Phòng ĐKTT)</th>
+                        <th style="width: 38%;">Máy phó (Hiện trường tầng 1 / tầng lửng gian tuabin)</th>
+                        <th style="width: 22%;">Thời gian / Tiêu chí</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1</strong></td>
+                        <td>Báo Trưởng kíp / Trưởng ca; theo dõi DCS (áp lực dầu, nhiệt độ dầu, nhiệt độ kim loại gối, rung trục)</td>
+                        <td>–</td>
+                        <td>Ngay lập tức</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2</strong></td>
+                        <td>Kiểm tra Fault / Trip; chuyển Auto → Manual; thử khởi động lại từng quạt từ DCS</td>
+                        <td>Di chuyển nhanh ra khu bể dầu kiểm tra động cơ, tủ điều khiển, kẹt cơ khí, rơ le nhiệt / aptomat</td>
+                        <td>Trong 2 phút; 1 quạt chạy ổn định (≈ 11,4 A)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>–</td>
+                        <td>Kiểm tra đường hút, bẫy hơi dầu, van tay; kiểm tra sương dầu tại gối; mở cửa thông gió phòng bể dầu; báo cử người trực CO₂ tại gối nóng</td>
+                        <td>Khi chưa chạy lại được quạt</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td>Báo Trưởng kíp liên hệ Điện / Cơ nhiệt; quyết định ngừng khẩn cấp khi vượt ngưỡng</td>
+                        <td>Phối hợp kiểm tra, hỗ trợ khắc phục; giám sát hiện trường</td>
+                        <td>Duy trì an toàn hoặc ngừng an toàn tuyệt đối</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="sec-8">
+            <h2>8. Checklist</h2>
+            
+            <h3>8.1. Checklist kiểm tra định kỳ (vận hành bình thường)</h3>
+            <ul class="checklist">
+                <li><label><input type="checkbox"> Áp suất bể dầu / gối trục duy trì trong khoảng –5 ÷ –15 mbar.</label></li>
+                <li><label><input type="checkbox"> Quạt VXM đang chạy: dòng điện ≈ 11,4 A, không rung / tiếng lạ.</label></li>
+                <li><label><input type="checkbox"> Quạt dự phòng ở chế độ Auto / Dự phòng liên động.</label></li>
+                <li><label><input type="checkbox"> Van tay đầu hút ở vị trí điều chỉnh hợp lý, chân không cân bằng giữa các gối.</label></li>
+                <li><label><input type="checkbox"> Van một chiều đầu đẩy hoạt động tốt.</label></li>
+                <li><label><input type="checkbox"> Đường ống hút, bộ tách ẩm / bẫy hơi dầu không tắc.</label></li>
+                <li><label><input type="checkbox"> Không có sương dầu rò rỉ tại gối trục.</label></li>
+                <li><label><input type="checkbox"> Không có sương dầu / dầu lỏng trên đường xả quạt.</label></li>
+                <li><label><input type="checkbox"> Nhiệt độ dầu hồi &lt; 82°C; nhiệt độ kim loại gối trong giới hạn.</label></li>
+                <li><label><input type="checkbox"> Lọc tái sinh dầu <code>13MAV10AT001</code> không quá tải.</label></li>
+            </ul>
+
+            <h3>8.2. Checklist xử lý sự cố (cả 2 quạt dừng / mất chân không)</h3>
+            <ul class="checklist">
+                <li><label><input type="checkbox"> Báo Trưởng kíp / Trưởng ca ngay.</label></li>
+                <li><label><input type="checkbox"> Theo dõi DCS: áp lực dầu ống góp, nhiệt độ dầu sau làm mát, nhiệt độ dầu hồi, nhiệt độ kim loại gối, rung trục.</label></li>
+                <li><label><input type="checkbox"> Kiểm tra Fault / Trip trên DCS; chuyển Auto → Manual; thử khởi động lại từng quạt.</label></li>
+                <li><label><input type="checkbox"> Máy phó kiểm tra tại chỗ: động cơ, tủ điều khiển, kẹt cơ khí, rơ le nhiệt / aptomat 0,4 kV.</label></li>
+                <li><label><input type="checkbox"> Kiểm tra đường hút, bẫy hơi dầu, van tay đầu hút.</label></li>
+                <li><label><input type="checkbox"> Mở cửa thông gió phòng bể dầu.</label></li>
+                <li><label><input type="checkbox"> Bố trí người trực chữa cháy với bình CO₂ tại gối 1, 2, 3.</label></li>
+                <li><label><input type="checkbox"> Nếu dầu hồi &gt; 82°C, có khói, hoặc cháy không kiểm soát: ngừng khẩn cấp tuabin có phá hoại chân không.</label></li>
+            </ul>
+        </section>
+
+        <section id="sec-9">
+            <h2>9. Nguyên tắc vàng</h2>
+            <div class="golden-rules">
+                <ul>
+                    <li>Quạt hút phải chạy trước bơm dầu chính khi khởi động.</li>
+                    <li>Luôn duy trì 1 chạy – 1 dự phòng Auto; không để cả 2 cùng dừng.</li>
+                    <li>Giữ chân không ở mức –5 ÷ –15 mbar, không quá thấp, không quá cao; ưu tiên đo và cân bằng tại gối trục.</li>
+                    <li>Sương dầu + bề mặt nóng = nguy cơ cháy nổ cao, xử lý ngay, không để tích tụ.</li>
+                    <li>Vượt ngưỡng nhiệt độ, có khói hoặc cháy không kiểm soát thì ngừng khẩn cấp tuabin có phá hoại chân không.</li>
+                    <li>Chân không quá cao sẽ hút hơi chèn trục và gây thất thoát dầu qua bộ tách ẩm, vì vậy phải theo dõi đường xả quạt thường xuyên.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="sec-10">
+            <h2>10. Kiến nghị bổ sung (để hoàn thiện quy trình)</h2>
+            <ul>
+                <li>Làm rõ cách diễn đạt "cao/thấp" của chân không (dùng "sâu hơn / âm hơn –20 mbar") để tránh hiểu nhầm.</li>
+                <li>Bổ sung cách phát hiện sớm trường hợp chân không quá cao: lấy mẫu dầu kiểm tra nước, xả nước đáy bể, theo dõi xu hướng mức dầu và tải lọc tái sinh.</li>
+                <li>Bổ sung mức cảnh báo định lượng cho chân không (báo động khi lệch dải) và thời gian cho phép vận hành khi mất chân không để việc ra quyết định ngừng máy thống nhất.</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
