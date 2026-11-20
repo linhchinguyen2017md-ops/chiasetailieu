@@ -27,10 +27,7 @@
             background-color: var(--bg-main);
             color: var(--text-primary);
             line-height: 1.6;
-            padding-top: calc(var(--nav-height) + 16px);
-            padding-bottom: 32px;
-            padding-left: 16px;
-            padding-right: 16px;
+            padding-top: var(--nav-height);
         }
 
         /* Thanh điều hướng cố định phía trên */
@@ -42,19 +39,20 @@
             height: var(--nav-height);
             background-color: #ffffff;
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-            z-index: 1000;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            z-index: 2000;
             display: flex;
             align-items: center;
         }
         .nav-container {
             width: 100%;
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 0 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
         .nav-brand {
             font-weight: 700;
@@ -64,17 +62,22 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
         }
         .nav-brand-dot {
             width: 10px;
             height: 10px;
             background-color: var(--status-active);
             border-radius: 50%;
-            display: inline-block;
+            flex-shrink: 0;
         }
         .nav-actions {
             display: flex;
             gap: 8px;
+            flex-shrink: 0;
         }
         .nav-btn {
             display: inline-flex;
@@ -106,10 +109,11 @@
             color: #ffffff;
         }
 
-        /* Khung nội dung chính */
-        .container {
+        /* Khung danh sách trang chủ */
+        #homeView {
             max-width: 900px;
             margin: 0 auto;
+            padding: 20px 16px 36px 16px;
         }
 
         /* Header + Khu vực nhân vật hoạt hình chỉ dẫn */
@@ -150,7 +154,6 @@
             font-weight: 500;
             padding: 8px 14px;
             border-radius: 8px;
-            position: relative;
         }
 
         /* Nhân vật hoạt hình kỹ sư SVG */
@@ -201,6 +204,7 @@
             color: inherit;
             transition: all 0.2s ease;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
         }
         .doc-card:hover {
             border-color: var(--accent);
@@ -250,17 +254,58 @@
             color: var(--text-secondary);
         }
 
+        /* Khung trình đọc tài liệu toàn màn hình */
+        #readerView {
+            display: none;
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff;
+            z-index: 1500;
+        }
+        #docFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Nút nổi góc dưới bên phải khi đang đọc trên điện thoại */
+        .floating-back-btn {
+            display: none;
+            position: fixed;
+            bottom: 18px;
+            right: 18px;
+            z-index: 2500;
+            background-color: var(--accent);
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 50px;
+            padding: 11px 18px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+            cursor: pointer;
+            align-items: center;
+            gap: 6px;
+        }
+        .floating-back-btn:active {
+            transform: scale(0.95);
+            background-color: var(--accent-hover);
+        }
+
         /* Tối ưu riêng cho màn hình điện thoại */
         @media (max-width: 640px) {
-            body {
-                padding-left: 12px;
-                padding-right: 12px;
+            #homeView {
+                padding: 14px 12px 28px 12px;
             }
             .nav-brand span.brand-text {
-                font-size: 0.92rem;
+                font-size: 0.9rem;
             }
             .nav-btn {
-                padding: 7px 10px;
+                padding: 7px 12px;
                 font-size: 0.82rem;
             }
             .hero-box {
@@ -269,18 +314,18 @@
                 gap: 12px;
             }
             .hero-text h1 {
-                font-size: 1.2rem;
+                font-size: 1.18rem;
             }
             .hero-text p {
-                font-size: 0.85rem;
+                font-size: 0.84rem;
                 margin-bottom: 8px;
             }
             .guide-bubble {
-                font-size: 0.8rem;
+                font-size: 0.78rem;
                 padding: 6px 10px;
             }
             .mascot-wrapper {
-                width: 82px;
+                width: 80px;
             }
             .doc-card {
                 flex-direction: column;
@@ -299,36 +344,36 @@
 </head>
 <body>
 
-    <!-- Thanh điều hướng cố định -->
+    <!-- Thanh điều hướng cố định luôn hiển thị cả ở trang chủ lẫn khi mở file -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="./index.html" class="nav-brand">
+            <div class="nav-brand" onclick="goHome()">
                 <span class="nav-brand-dot"></span>
-                <span class="brand-text">Tài Liệu Lò - Máy</span>
-            </a>
+                <span class="brand-text" id="navTitle">Tài Liệu Lò - Máy</span>
+            </div>
             <div class="nav-actions">
-                <a href="./index.html" class="nav-btn nav-btn-primary">
+                <button type="button" class="nav-btn nav-btn-primary" id="btnBackHome" onclick="goHome()">
                     &#8962; Trang chủ
-                </a>
-                <a href="javascript:history.back()" class="nav-btn">
-                    &larr; Quay lại
+                </button>
+                <a id="btnOpenNewTab" href="#" target="_blank" class="nav-btn" style="display: none;" title="Mở toàn trang riêng">
+                    &#8599; Tab mới
                 </a>
             </div>
         </div>
     </nav>
 
-    <div class="container">
-        <!-- Khung giới thiệu + Nhân vật hoạt hình kỹ sư chỉ dẫn -->
+    <!-- GIAO DIỆN 1: TRANG CHỦ DANH SÁCH TÀI LIỆU -->
+    <main id="homeView">
         <div class="hero-box">
             <div class="hero-text">
                 <h1>Cổng Chia Sẻ Tài Liệu Lò Hơi - Tuabin</h1>
                 <p>Kho lưu trữ tài liệu kỹ thuật, báo cáo chuyên đề và hướng dẫn vận hành.</p>
                 <div class="guide-bubble">
-                    &#128071; Bấm chọn một tài liệu bên dưới để xem chi tiết!
+                    &#128071; Bấm chọn một tài liệu bên dưới để đọc ngay!
                 </div>
             </div>
 
-            <!-- Hình vẽ hoạt hình kỹ sư vận hành chỉ tay -->
+            <!-- Nhân vật hoạt hình kỹ sư vận hành chỉ tay -->
             <div class="mascot-wrapper" aria-hidden="true">
                 <svg viewBox="0 0 140 160" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                     <ellipse cx="70" cy="152" rx="34" ry="6" fill="#cbd5e1" />
@@ -366,7 +411,7 @@
         </div>
 
         <div class="doc-list">
-            <a href="./bao_cao_tong_hop_PLU.html" class="doc-card">
+            <a href="./bao_cao_tong_hop_PLU.html" class="doc-card" onclick="openDoc(event, './bao_cao_tong_hop_PLU.html', 'Báo Cáo Tổng Hợp PLU')">
                 <div class="doc-info">
                     <h2>Báo Cáo Tổng Hợp Chế Độ PLU (Power Load Unbalance)</h2>
                     <p>Tệp tin: <code>bao_cao_tong_hop_PLU.html</code> — Nguyên lý hoạt động, logic bảo vệ và vận hành chế độ PLU.</p>
@@ -374,7 +419,7 @@
                 <span class="doc-badge">Mở tài liệu &rarr;</span>
             </a>
 
-            <a href="./VXM.html" class="doc-card">
+            <a href="./VXM.html" class="doc-card" onclick="openDoc(event, './VXM.html', 'Tài Liệu Kỹ Thuật VXM')">
                 <div class="doc-info">
                     <h2>Tài Liệu Kỹ Thuật VXM</h2>
                     <p>Tệp tin: <code>VXM.html</code> — Tài liệu chuyên đề hệ thống vận hành lò - máy.</p>
@@ -386,7 +431,63 @@
         <footer>
             <p>Lưu trữ trên GitHub Pages &bull; Chuyên môn Vận hành Lò - Máy</p>
         </footer>
-    </div>
+    </main>
+
+    <!-- GIAO DIỆN 2: TRÌNH ĐỌC TÀI LIỆU TÍCH HỢP -->
+    <section id="readerView">
+        <iframe id="docFrame" src="" title="Nội dung tài liệu"></iframe>
+    </section>
+
+    <!-- Nút nổi góc dưới phải giúp quay lại nhanh bằng ngón tay cái trên điện thoại -->
+    <button type="button" class="floating-back-btn" id="floatingBackBtn" onclick="goHome()">
+        &larr; Quay lại Trang chủ
+    </button>
+
+    <script>
+        const homeView = document.getElementById('homeView');
+        const readerView = document.getElementById('readerView');
+        const docFrame = document.getElementById('docFrame');
+        const navTitle = document.getElementById('navTitle');
+        const btnBackHome = document.getElementById('btnBackHome');
+        const btnOpenNewTab = document.getElementById('btnOpenNewTab');
+        const floatingBackBtn = document.getElementById('floatingBackBtn');
+
+        function openDoc(event, url, title) {
+            if (event) event.preventDefault();
+            docFrame.src = url;
+            homeView.style.display = 'none';
+            readerView.style.display = 'block';
+            floatingBackBtn.style.display = 'inline-flex';
+            btnOpenNewTab.href = url;
+            btnOpenNewTab.style.display = 'inline-flex';
+            navTitle.textContent = title;
+            btnBackHome.innerHTML = '&larr; Quay lại Trang chủ';
+            window.scrollTo(0, 0);
+            history.pushState({ docUrl: url, docTitle: title }, '', '#doc=' + encodeURIComponent(url));
+        }
+
+        function goHome(skipHistory) {
+            readerView.style.display = 'none';
+            floatingBackBtn.style.display = 'none';
+            btnOpenNewTab.style.display = 'none';
+            homeView.style.display = 'block';
+            docFrame.src = '';
+            navTitle.textContent = 'Tài Liệu Lò - Máy';
+            btnBackHome.innerHTML = '&#8962; Trang chủ';
+            if (!skipHistory && window.location.hash.startsWith('#doc=')) {
+                history.pushState(null, '', window.location.pathname);
+            }
+        }
+
+        // Hỗ trợ nút Back vật lý trên điện thoại Android / trình duyệt
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.docUrl) {
+                openDoc(null, event.state.docUrl, event.state.docTitle);
+            } else {
+                goHome(true);
+            }
+        });
+    </script>
 
 </body>
 </html>
