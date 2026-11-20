@@ -220,10 +220,31 @@
             font-weight: 600;
             color: var(--accent);
             margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .doc-card:hover .doc-info h2 {
             color: var(--accent-hover);
             text-decoration: underline;
+        }
+        .file-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            text-decoration: none !important;
+            display: inline-block;
+        }
+        .tag-html {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+        }
+        .tag-pdf {
+            background-color: #fee2e2;
+            color: #b91c1c;
         }
         .doc-info p {
             font-size: 0.875rem;
@@ -413,7 +434,7 @@
         <div class="doc-list">
             <a href="./bao_cao_tong_hop_PLU.html" class="doc-card" onclick="openDoc(event, './bao_cao_tong_hop_PLU.html', 'Báo Cáo Tổng Hợp PLU')">
                 <div class="doc-info">
-                    <h2>Báo Cáo Tổng Hợp Chế Độ PLU (Power Load Unbalance)</h2>
+                    <h2>Báo Cáo Tổng Hợp Chế Độ PLU (Power Load Unbalance) <span class="file-tag tag-html">HTML</span></h2>
                     <p>Tệp tin: <code>bao_cao_tong_hop_PLU.html</code> — Nguyên lý hoạt động, logic bảo vệ và vận hành chế độ PLU.</p>
                 </div>
                 <span class="doc-badge">Mở tài liệu &rarr;</span>
@@ -421,10 +442,18 @@
 
             <a href="./VXM.html" class="doc-card" onclick="openDoc(event, './VXM.html', 'Tài Liệu Kỹ Thuật VXM')">
                 <div class="doc-info">
-                    <h2>Tài Liệu Kỹ Thuật VXM</h2>
+                    <h2>Tài Liệu Kỹ Thuật VXM <span class="file-tag tag-html">HTML</span></h2>
                     <p>Tệp tin: <code>VXM.html</code> — Tài liệu chuyên đề hệ thống vận hành lò - máy.</p>
                 </div>
                 <span class="doc-badge">Mở tài liệu &rarr;</span>
+            </a>
+
+            <a href="./Báo cáo Biểu diễn chu trình Rankine tái nhiệt.pdf" class="doc-card" onclick="openDoc(event, './Báo cáo Biểu diễn chu trình Rankine tái nhiệt.pdf', 'Chu Trình Rankine Tái Nhiệt')">
+                <div class="doc-info">
+                    <h2>Báo Cáo Biểu Diễn Chu Trình Rankine Tái Nhiệt <span class="file-tag tag-pdf">PDF</span></h2>
+                    <p>Tệp tin: <code>Báo cáo Biểu diễn chu trình Rankine tái nhiệt.pdf</code> — Phân tích nhiệt động lực học và đồ thị chu trình tái nhiệt.</p>
+                </div>
+                <span class="doc-badge">Mở tài liệu PDF &rarr;</span>
             </a>
         </div>
 
@@ -454,11 +483,13 @@
 
         function openDoc(event, url, title) {
             if (event) event.preventDefault();
-            docFrame.src = url;
+            const encodedUrl = encodeURI(url);
+            
+            docFrame.src = encodedUrl;
             homeView.style.display = 'none';
             readerView.style.display = 'block';
             floatingBackBtn.style.display = 'inline-flex';
-            btnOpenNewTab.href = url;
+            btnOpenNewTab.href = encodedUrl;
             btnOpenNewTab.style.display = 'inline-flex';
             navTitle.textContent = title;
             btnBackHome.innerHTML = '&larr; Quay lại Trang chủ';
