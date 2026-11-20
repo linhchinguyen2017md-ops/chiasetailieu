@@ -1,46 +1,392 @@
-<!-- Bắt đầu đoạn mã nút Quay lại Trang chủ -->
-<style>
-    .btn-back-home {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99999;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background-color: #0284c7;
-        color: #ffffff !important;
-        text-decoration: none !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        font-size: 14px;
-        font-weight: 600;
-        padding: 12px 18px;
-        border-radius: 50px;
-        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
-        border: 2px solid #ffffff;
-        transition: all 0.2s ease;
-        -webkit-tap-highlight-color: transparent;
-    }
-    .btn-back-home:hover {
-        background-color: #0369a1;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(2, 132, 199, 0.45);
-    }
-    .btn-back-home:active {
-        transform: scale(0.96);
-    }
-    @media (max-width: 640px) {
-        .btn-back-home {
-            bottom: 16px;
-            right: 16px;
-            padding: 10px 16px;
-            font-size: 13px;
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Chia Sẻ Tài Liệu Lò Hơi - Tuabin</title>
+    <style>
+        :root {
+            --bg-main: #f4f7f9;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #0284c7;
+            --accent-hover: #0369a1;
+            --border: #e2e8f0;
+            --status-active: #dc2626;
+            --nav-height: 56px;
         }
-    }
-</style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: calc(var(--nav-height) + 16px);
+            padding-bottom: 32px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
 
-<a href="./index.html" class="btn-back-home" title="Quay về danh sách tài liệu">
-    <span>&#8962;</span>
-    <span>Trang chủ</span>
-</a>
-<!-- Kết thúc đoạn mã nút Quay lại Trang chủ -->
+        /* Thanh điều hướng cố định phía trên */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .nav-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-brand-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--status-active);
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background-color: #f8fafc;
+            color: var(--text-primary);
+        }
+        .nav-btn:hover, .nav-btn:active {
+            background-color: #e0f2fe;
+            border-color: var(--accent);
+            color: var(--accent-hover);
+        }
+        .nav-btn-primary {
+            background-color: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        .nav-btn-primary:hover, .nav-btn-primary:active {
+            background-color: var(--accent-hover);
+            color: #ffffff;
+        }
+
+        /* Khung nội dung chính */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header + Khu vực nhân vật hoạt hình chỉ dẫn */
+        .hero-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .hero-text {
+            flex: 1;
+        }
+        .hero-text h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .hero-text p {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        .guide-bubble {
+            display: inline-block;
+            background-color: #f0f9ff;
+            border: 1px solid #bae6fd;
+            color: #0369a1;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        /* Nhân vật hoạt hình kỹ sư SVG */
+        .mascot-wrapper {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 115px;
+            animation: floatMascot 3s ease-in-out infinite;
+        }
+        @keyframes floatMascot {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+
+        /* Danh sách tài liệu */
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--status-active);
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .doc-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+        .doc-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+        .doc-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+        }
+        .doc-card:active {
+            transform: scale(0.99);
+            background-color: #f8fafc;
+        }
+        .doc-info h2 {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        .doc-card:hover .doc-info h2 {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+        .doc-info p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .doc-info code {
+            background-color: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            color: #334155;
+        }
+        .doc-badge {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 6px;
+            white-space: nowrap;
+            margin-left: 16px;
+        }
+
+        footer {
+            margin-top: 36px;
+            text-align: center;
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+        }
+
+        /* Tối ưu riêng cho màn hình điện thoại */
+        @media (max-width: 640px) {
+            body {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+            .nav-brand span.brand-text {
+                font-size: 0.92rem;
+            }
+            .nav-btn {
+                padding: 7px 10px;
+                font-size: 0.82rem;
+            }
+            .hero-box {
+                flex-direction: row;
+                padding: 16px;
+                gap: 12px;
+            }
+            .hero-text h1 {
+                font-size: 1.2rem;
+            }
+            .hero-text p {
+                font-size: 0.85rem;
+                margin-bottom: 8px;
+            }
+            .guide-bubble {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+            .mascot-wrapper {
+                width: 82px;
+            }
+            .doc-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 16px;
+            }
+            .doc-badge {
+                margin-left: 0;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Thanh điều hướng cố định -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-brand">
+                <span class="nav-brand-dot"></span>
+                <span class="brand-text">Tài Liệu Lò - Máy</span>
+            </a>
+            <div class="nav-actions">
+                <a href="./index.html" class="nav-btn nav-btn-primary">
+                    &#8962; Trang chủ
+                </a>
+                <a href="javascript:history.back()" class="nav-btn">
+                    &larr; Quay lại
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Khung giới thiệu + Nhân vật hoạt hình kỹ sư chỉ dẫn -->
+        <div class="hero-box">
+            <div class="hero-text">
+                <h1>Cổng Chia Sẻ Tài Liệu Lò Hơi - Tuabin</h1>
+                <p>Kho lưu trữ tài liệu kỹ thuật, báo cáo chuyên đề và hướng dẫn vận hành.</p>
+                <div class="guide-bubble">
+                    &#128071; Bấm chọn một tài liệu bên dưới để xem chi tiết!
+                </div>
+            </div>
+
+            <!-- Hình vẽ hoạt hình kỹ sư vận hành chỉ tay -->
+            <div class="mascot-wrapper" aria-hidden="true">
+                <svg viewBox="0 0 140 160" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="70" cy="152" rx="34" ry="6" fill="#cbd5e1" />
+                    <path d="M42 96 C42 84, 98 84, 98 96 L104 144 L36 144 Z" fill="#0284c7" />
+                    <polygon points="62,86 78,86 70,108" fill="#ffffff" />
+                    <rect x="40" y="116" width="60" height="6" fill="#fde047" rx="2" />
+                    <rect x="46" y="88" width="6" height="56" fill="#fde047" />
+                    <rect x="88" y="88" width="6" height="56" fill="#fde047" />
+                    <path d="M42 94 Q24 108 38 124" stroke="#0369a1" stroke-width="11" stroke-linecap="round" fill="none" />
+                    <circle cx="38" cy="124" r="6" fill="#fed7aa" />
+                    <path d="M98 94 Q122 104 114 126" stroke="#0369a1" stroke-width="11" stroke-linecap="round" fill="none" />
+                    <circle cx="114" cy="126" r="6.5" fill="#fed7aa" />
+                    <line x1="114" y1="126" x2="108" y2="138" stroke="#fed7aa" stroke-width="4.5" stroke-linecap="round" />
+                    <rect x="63" y="75" width="14" height="14" fill="#fdba74" rx="4" />
+                    <circle cx="70" cy="56" r="24" fill="#fed7aa" />
+                    <circle cx="45" cy="58" r="5" fill="#fdba74" />
+                    <circle cx="95" cy="58" r="5" fill="#fdba74" />
+                    <path d="M47 48 Q48 38 56 38 L84 38 Q92 38 93 48" fill="#1e293b" />
+                    <circle cx="61" cy="55" r="3" fill="#0f172a" />
+                    <circle cx="79" cy="55" r="3" fill="#0f172a" />
+                    <circle cx="62" cy="54" r="1" fill="#ffffff" />
+                    <circle cx="80" cy="54" r="1" fill="#ffffff" />
+                    <path d="M56 49 Q61 47 66 49" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round" />
+                    <path d="M74 49 Q79 47 84 49" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round" />
+                    <path d="M62 66 Q70 73 78 66" stroke="#b91c1c" stroke-width="2.5" fill="none" stroke-linecap="round" />
+                    <path d="M43 44 C43 22, 97 22, 97 44 Z" fill="#facc15" />
+                    <path d="M64 24 L64 41 M76 24 L76 41" stroke="#eab308" stroke-width="2.5" stroke-linecap="round" />
+                    <rect x="38" y="41" width="64" height="6" rx="3" fill="#eab308" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <span class="status-dot"></span> Danh sách tài liệu hiện có
+        </div>
+
+        <div class="doc-list">
+            <a href="./bao_cao_tong_hop_PLU.html" class="doc-card">
+                <div class="doc-info">
+                    <h2>Báo Cáo Tổng Hợp Chế Độ PLU (Power Load Unbalance)</h2>
+                    <p>Tệp tin: <code>bao_cao_tong_hop_PLU.html</code> — Nguyên lý hoạt động, logic bảo vệ và vận hành chế độ PLU.</p>
+                </div>
+                <span class="doc-badge">Mở tài liệu &rarr;</span>
+            </a>
+
+            <a href="./VXM.html" class="doc-card">
+                <div class="doc-info">
+                    <h2>Tài Liệu Kỹ Thuật VXM</h2>
+                    <p>Tệp tin: <code>VXM.html</code> — Tài liệu chuyên đề hệ thống vận hành lò - máy.</p>
+                </div>
+                <span class="doc-badge">Mở tài liệu &rarr;</span>
+            </a>
+        </div>
+
+        <footer>
+            <p>Lưu trữ trên GitHub Pages &bull; Chuyên môn Vận hành Lò - Máy</p>
+        </footer>
+    </div>
+
+</body>
+</html>
