@@ -432,7 +432,11 @@
         </div>
 
         <div class="doc-list">
-            <a href="./bao_cao_tong_hop_PLU.html" class="doc-card" onclick="openDoc(event, './bao_cao_tong_hop_PLU.html', 'Báo Cáo Tổng Hợp PLU')">
+            <a href="./bao_cao_tong_hop_PLU.html"
+               class="doc-card"
+               data-url="./bao_cao_tong_hop_PLU.html"
+               data-title="Báo Cáo Tổng Hợp PLU"
+               onclick="openDoc(event, this.dataset.url, this.dataset.title)">
                 <div class="doc-info">
                     <h2>Báo Cáo Tổng Hợp Chế Độ PLU (Power Load Unbalance) <span class="file-tag tag-html">HTML</span></h2>
                     <p>Tệp tin: <code>bao_cao_tong_hop_PLU.html</code> — Nguyên lý hoạt động, logic bảo vệ và vận hành chế độ PLU.</p>
@@ -440,7 +444,11 @@
                 <span class="doc-badge">Mở tài liệu &rarr;</span>
             </a>
 
-            <a href="./VXM.html" class="doc-card" onclick="openDoc(event, './VXM.html', 'Tài Liệu Kỹ Thuật VXM')">
+            <a href="./VXM.html"
+               class="doc-card"
+               data-url="./VXM.html"
+               data-title="Tài Liệu Kỹ Thuật VXM"
+               onclick="openDoc(event, this.dataset.url, this.dataset.title)">
                 <div class="doc-info">
                     <h2>Tài Liệu Kỹ Thuật VXM <span class="file-tag tag-html">HTML</span></h2>
                     <p>Tệp tin: <code>VXM.html</code> — Tài liệu chuyên đề hệ thống vận hành lò - máy.</p>
@@ -448,7 +456,23 @@
                 <span class="doc-badge">Mở tài liệu &rarr;</span>
             </a>
 
-            <a href="./Báo cáo Biểu diễn chu trình Rankine tái nhiệt.pdf" class="doc-card" onclick="openDoc(event, './Báo cáo Biểu diễn chu trình Rankine tái nhiệt.pdf', 'Chu Trình Rankine Tái Nhiệt')">
+            <a href="./vuottoc.html"
+               class="doc-card"
+               data-url="./vuottoc.html"
+               data-title="Bảo Vệ Vượt Tốc Tuabin"
+               onclick="openDoc(event, this.dataset.url, this.dataset.title)">
+                <div class="doc-info">
+                    <h2>Bảo Vệ Vượt Tốc Tuabin (Overspeed) <span class="file-tag tag-html">HTML</span></h2>
+                    <p>Tệp tin: <code>vuottoc.html</code> — Nguyên lý, logic bảo vệ và quy trình thử nghiệm vượt tốc tuabin.</p>
+                </div>
+                <span class="doc-badge">Mở tài liệu &rarr;</span>
+            </a>
+
+            <a href="./Báo cáo Biểu diễn chu trình Rankine tái nhiệt.pdf"
+               class="doc-card"
+               data-url="./Báo cáo Biểu diễn chu trình Rankine tái nhiệt.pdf"
+               data-title="Chu Trình Rankine Tái Nhiệt"
+               onclick="openDoc(event, this.dataset.url, this.dataset.title)">
                 <div class="doc-info">
                     <h2>Báo Cáo Biểu Diễn Chu Trình Rankine Tái Nhiệt <span class="file-tag tag-pdf">PDF</span></h2>
                     <p>Tệp tin: <code>Báo cáo Biểu diễn chu trình Rankine tái nhiệt.pdf</code> — Phân tích nhiệt động lực học và đồ thị chu trình tái nhiệt.</p>
@@ -481,23 +505,42 @@
         const btnOpenNewTab = document.getElementById('btnOpenNewTab');
         const floatingBackBtn = document.getElementById('floatingBackBtn');
 
-        function openDoc(event, url, title) {
+        // Tìm tiêu đề hiển thị tương ứng với đường dẫn tài liệu
+        function getTitleByUrl(url) {
+            const cards = document.querySelectorAll('.doc-card');
+            for (const card of cards) {
+                if (card.dataset.url === url) {
+                    return card.dataset.title;
+                }
+            }
+            return url.split('/').pop().replace(/\.(html|pdf)$/i, '');
+        }
+
+        function openDoc(event, url, title, skipHistory = false) {
             if (event) event.preventDefault();
             const encodedUrl = encodeURI(url);
-            
+            const displayTitle = title || getTitleByUrl(url);
+
             docFrame.src = encodedUrl;
             homeView.style.display = 'none';
             readerView.style.display = 'block';
             floatingBackBtn.style.display = 'inline-flex';
             btnOpenNewTab.href = encodedUrl;
             btnOpenNewTab.style.display = 'inline-flex';
-            navTitle.textContent = title;
+            navTitle.textContent = displayTitle;
             btnBackHome.innerHTML = '&larr; Quay lại Trang chủ';
             window.scrollTo(0, 0);
-            history.pushState({ docUrl: url, docTitle: title }, '', '#doc=' + encodeURIComponent(url));
+
+            if (!skipHistory) {
+                history.pushState(
+                    { docUrl: url, docTitle: displayTitle },
+                    '',
+                    '#doc=' + encodeURIComponent(url)
+                );
+            }
         }
 
-        function goHome(skipHistory) {
+        function goHome(skipHistory = false) {
             readerView.style.display = 'none';
             floatingBackBtn.style.display = 'none';
             btnOpenNewTab.style.display = 'none';
@@ -505,19 +548,38 @@
             docFrame.src = '';
             navTitle.textContent = 'Tài Liệu Lò - Máy';
             btnBackHome.innerHTML = '&#8962; Trang chủ';
+
             if (!skipHistory && window.location.hash.startsWith('#doc=')) {
-                history.pushState(null, '', window.location.pathname);
+                history.pushState(null, '', window.location.pathname + window.location.search);
             }
         }
 
-        // Hỗ trợ nút Back vật lý trên điện thoại Android / trình duyệt
+        // Tự động kiểm tra và mở tài liệu nếu đường dẫn có sẵn #doc=...
+        function handleHashRoute() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#doc=')) {
+                const docUrl = decodeURIComponent(hash.slice(5));
+                if (docUrl) {
+                    const docTitle = getTitleByUrl(docUrl);
+                    openDoc(null, docUrl, docTitle, true);
+                    history.replaceState({ docUrl, docTitle }, '', hash);
+                    return;
+                }
+            }
+            goHome(true);
+        }
+
+        // Hỗ trợ nút Back / Forward trên trình duyệt và điện thoại
         window.addEventListener('popstate', function(event) {
             if (event.state && event.state.docUrl) {
-                openDoc(null, event.state.docUrl, event.state.docTitle);
+                openDoc(null, event.state.docUrl, event.state.docTitle, true);
             } else {
-                goHome(true);
+                handleHashRoute();
             }
         });
+
+        // Chạy khi vừa tải trang (hỗ trợ F5 hoặc mở từ link chia sẻ)
+        window.addEventListener('DOMContentLoaded', handleHashRoute);
     </script>
 
 </body>
